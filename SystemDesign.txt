@@ -1,0 +1,55 @@
+1* Brainstorm names and verbs:
+
+names:game,game manager,board,player,human,bot,AI,pieces,symbols,game condition,difficulty,new game,puzzle,score,total score , grid, table , winning row...
+
+verbs:play,play first,play again,win,draw,lose,place piece,change player,exit,reset,restart, record score, add score, render board...
+
+2* remove duplicates , remove whatever doesn't make sense , compliment some with other:
+
+-player=human=bot=AI ==> player class
+-pieces=symbols ==> symbol class
+-difficulty is inside AI
+-puzzle is irrelevant
+-play, exit, reset , restart  are all game states ==> game manager class
+-render board ==> a class that draws the board
+-board grid ==> a class that places symbols and show empty board cases.
+-game condition,winning row , win , lose ,draw == game condition
+- record score,add score== Score
+
+3* Global candidate classes and responsibilities:
+Classes: Game, GameManager, Player, Symbol, BoardView, BoardGrid
+Instances:
+	X, O of the class Symbol
+	human,bot or AI of the class Player
+	(different boards of the class BoardView) maybe
+Responsibilites:play, placeSymbol, recordScore, quit , reset, visualize board.
+
+4* Allocation of each responsibility with it's class , and define class relationships:
+-class Game : play , recordScore, quit and reset.
+-class BoardGrid: placeSymbol .
+-class Player,Symbol: nothing yet
+-Controller class: class GameManagement : start a new game 
+-Visualize class : class BoardView : display the game
+
+5*check if our classes respond to everything by doing a scenario walkthrough 
+
+-who starts a new game? class GameManagement
+-who create and place  symbols? class Symbol and BoardGrid
+-who checks the winner? maybe class Game
+-who keep records of the game ? class Game
+-who decides players? class GameManager
+
+6*final design:
+-class Game:a single tictactoe game
+	-play 
+-class GameManager: a session of multiple games
+	-playNewGame, quit, reset, decidePlayers, recordScores
+-class BoardView: visulal display of one game
+	-placeSymbol(visually), printScores
+-class BoardGrid: the game grid 3x3
+	-placeSymbol(really)
+-class Player: represents the players
+	-nothing
+-class Symbol represents X or O 
+	-nothing
+
