@@ -15,7 +15,7 @@ public class Quit implements Options {
 
     @Override
     public void execute() {
-        manager.quitApp();
+        manager.quitGame();
     }
 
     @Override

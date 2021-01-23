@@ -19,7 +19,7 @@ public class Print {
 	
 	//Messages displayed to the users
 	void welcome() {
-		output.println("Welcome to the best version of TicTacToe there is!");
+		output.println("\nWelcome to the best version of TicTacToe there is!");
 	}
 	void player1Type() {
         output.println("Select Player1 Type:");
@@ -30,6 +30,9 @@ public class Print {
 	void player1Symbol() {
 		output.println("Choose your symbol: 'X' OR 'O' ");
 	}
+	void player1Turn() {
+		output.println("Player1 goes first");
+	}
 	void player2Type() {
         output.println("Select Player2 Type:");
     }
@@ -39,15 +42,22 @@ public class Print {
 	void player2Symbol() {
 		output.println("Choose your symbol: 'X' OR 'O' ");
 	}
+	void player2Turn() {
+		output.println("Player2 goes first");
+	}
 	void boardSize(){
         output.println("Select Board Size:");
     }
 	public void whoPlaysFirst() {
         output.println("Who should go first?");
     }
-	void invalidSelection() {
+	void invalidNumberSelection() {
         output.println("Select a Valid Number please!!");
     }
+	void invalidSymbolSelection() {
+        output.println("Select a Valid symbol please!!");
+    }
+	
 	void exiting() {
         output.println("Exiting");
     }
@@ -82,7 +92,7 @@ public class Print {
 	}
 	
 	void selectPosition(Game game) {
-		output.println(game.currentPlayer.getSymbol()+"select a position");
+		output.println("\n"+game.currentPlayer.getSymbol()+" select a position");
 	}
 	
 	// L51 ==> 91 is definitely mine
@@ -132,6 +142,7 @@ public class Print {
     void outcome(Game game) {
     	if(game.getWinner()!=null) {
     		output.println("The winner is "+ game.getWinner().getSymbol());
+    		
     	}else {
     		output.println("It's a tie");
     	}

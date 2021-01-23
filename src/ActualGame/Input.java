@@ -24,17 +24,17 @@ public class Input {
         try {
             return input.nextInt();
         } catch (InputMismatchException e) {
-            print.invalidSelection(); //error message
+            print.invalidNumberSelection(); //error message
             input.next();
             return getInteger();
         }
     }
-    //method that reads a string
+    //recursive method that reads a string
     String getString() {
     	try {
     		return input.next();
     	} catch(Exception e) {
-    		print.invalidSelection(); //error message
+    		print.invalidNumberSelection(); //error message
             input.next();
             return getString();
     	}
@@ -46,7 +46,7 @@ public class Input {
         if (options.contains(selection)) {
             return selection;
         } else {
-            print.invalidSelection();
+            print.invalidNumberSelection();
             return validateSelection(options);
         }
     }

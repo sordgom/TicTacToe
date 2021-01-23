@@ -2,7 +2,11 @@ package ActualGame;
 
 import java.util.ArrayList;
 import java.util.List;
-//changes Positions with positions
+/**
+ * 
+ * @author Aymane Igmiden
+ *
+ */
 public class Board  {
 	
 	private final int rows;
@@ -32,7 +36,7 @@ public class Board  {
         return availablePositions;
     }
 	public void resetPositions(int position) {
-		positions.set(position - 1 , String.valueOf(position));
+		positions.set(position - 1  , String.valueOf(position));
 	}
 	private void assignValuesToPositions() {
 		for(int i=0;i<totalPositions;i++) {
@@ -58,9 +62,7 @@ public class Board  {
 	public ArrayList<ArrayList<String>> getRows() {
 	    ArrayList<ArrayList<String>> list = new ArrayList<>(rows);
 	    for (int i = 0; i < rows; i++) {
-	        list.add(
-	                new ArrayList<>(
-	                        getPositions().subList(i * rows, (rows * i) + rows)));
+	        list.add(new ArrayList<>(getPositions().subList(i * rows, (rows * i) + rows)));
 	    }
 	    return list;
 	}

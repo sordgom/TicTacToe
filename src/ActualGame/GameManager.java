@@ -1,6 +1,5 @@
 package ActualGame;
 /**This class is responsible of managing all of the game states
- * Each method uses methods implemented later on!
  * @author Aymane Igmiden
  * @version beta
  * @since 2020-01-14
@@ -12,22 +11,24 @@ import java.util.Arrays;
 
 
 public class GameManager {
-	private final List<Player> playerTypes;
+	//playerType list that hold 3 objects : human player,random bot,smart bot 
+	private final List<Player> playerTypes=players();
+	private final List<Player> playerTypes2=players2(); //This is required since we need to escape the clash of calling the same object
     private Game game;
     private Input input;
     private Print print;
     private boolean gameRunning = true;
 
-    GameManager(Input input, Print print,List<Player> playerTypes) {
+    GameManager(Input input, Print print) {
         this.input = input;
         this.print = print;
-        this.playerTypes=playerTypes;
     }
+    
     //Method that runs the game depending on the its state.
     void run() {
         while (gameRunning) {
-            startGame();
-            if (game != null) {
+        	startGame();
+        	if (game != null) {
                 while (gameInProgress()) {
                     makeMove();
                 }
@@ -36,12 +37,13 @@ public class GameManager {
         }
     }
     //Starts a game by invoking welcome message , creates a board and set up the state
-    private void startGame() {
+    public void startGame() {
         print.clearScreen();
         print.welcome();
         Board board = createBoard();
         createGame(board);
     }
+    
     //Create new game state
     private void createGame(Board board) {
     	String name,symbol;
@@ -51,12 +53,16 @@ public class GameManager {
         print.playerOption();
         int firstPlayer=getSelection(playerTypes,0);
         Player player1=playerTypes.get(firstPlayer-1);
+        player1.setSymbol("X"); //by default
         if(firstPlayer==1) {
         	print.player1Name();
         	name=input.getString();
         	print.player1Symbol();
         	symbol=input.getString();
-        	
+        	while(!(symbol.equals("X") || symbol.equals("x") || symbol.equals("O") ||symbol.equals("o"))) {
+        		print.invalidSymbolSelection();
+        		symbol=input.getString();
+        	}
         	player1=new Human(input,symbol,name);
         	
         }
@@ -64,23 +70,43 @@ public class GameManager {
         //2nd player setup
         print.player2Type();
         print.playerOption();
-        int secondPlayer=getSelection(playerTypes,0);
-        Player player2=playerTypes.get(secondPlayer-1);
+        int secondPlayer=getSelection(playerTypes2,0);
+        Player player2=playerTypes2.get(secondPlayer-1);
+        player2.setSymbol("O");   //by default
         if(secondPlayer==1) {
         	print.player2Name();
         	name=input.getString();
         	print.player1Symbol();
         	symbol=input.getString();
+        	while(!(symbol.equals("X") || symbol.equals("x") || symbol.equals("O") ||symbol.equals("o"))) {
+        		print.invalidSymbolSelection();
+        		symbol=input.getString();
+        	}
         	player2=new Human(input,symbol,name);
         }
+        
+        
+        //Automatically select the 2nd player"s symbol
         if(player1.getSymbol().equals("X")) {
         	player2.setSymbol("O");
         }
         if(player1.getSymbol().equals("O")) {
         	player2.setSymbol("X");
         }
-        game = startNewGame(player1,player2, board);
+        
+        //Randomly choose who'll play first
+        int rand=(int)(Math.random()*9);
+        if(rand%2==0) {
+        	print.player1Turn();
+        	game = startNewGame(player1,player2, board);
+        }else {
+        	print.player2Turn();
+        	game = startNewGame(player2,player1, board);
+
+        }
+        
     }
+    
     //Create a board based on size chosen
     private Board createBoard() {
         print.boardSize();
@@ -88,7 +114,7 @@ public class GameManager {
         return selectBoardSize(getSelection(boardTypes()));
     }
     /**
-     * Methods that validates the players type
+     * Methods that gets the player choice
      * @param players
      * @return player index
      */
@@ -96,7 +122,7 @@ public class GameManager {
         return input.validateSelection(input.validSelections(players));
     }
     /**
-     * Method that validates the options
+     * Method that gets the menu options
      * @param options
      * @return The option index
      */
@@ -110,7 +136,7 @@ public class GameManager {
      * @return new Game state
      */
     private Game startNewGame(Player player1,Player player2, Board board) {
-        Game newGame = new Game(board,player1,player2);
+    	Game newGame = new Game(board,player1,player2);
         return newGame;
     }
     /**
@@ -126,28 +152,28 @@ public class GameManager {
     private boolean gameInProgress() {
         return !game.isGameOver();
     }
-    //Method that makes a amove
+    
     private void makeMove() {
         print.clearScreen();
         print.selectPosition(game);
         print.board(game.board);
         game.takeTurn();
     }
-    //The end game
+    
     private void endOfGame() {
         print.clearScreen();
         print.outcome(game);
         print.board(game.board);
         playAgain();
     }
-    //Based on your choice , play or not
+
     private void playAgain() {
         print.playAgain();
         print.options(playCommands());
         playAgainCommand(getSelection(playCommands()));
     }
     
-    public void quitApp() {
+    public void quitGame() {
     	gameRunning = false;
         print.exiting();
     }
@@ -160,15 +186,20 @@ public class GameManager {
     private List<Boards> boardTypes() {
         return Arrays.asList(new NormalBoard(), new BigBoard());
     }
-    //Type of players
-    private List<Player> playerTypes() {
-        return Arrays.asList(new Human(), new RandomBot(),new SmartBot());
+    private static List<Player> players() {
+        return Arrays.asList(
+                new Human(), new RandomBot(), new SmartBot());
     }
+    private static List<Player> players2() {
+        return Arrays.asList(
+                new Human(), new RandomBot(), new SmartBot());
+    }
+   
     //PlayAgain option or exit option
     private void playAgainCommand(int selection) {
         Options playOrQuit = playCommands().get(selection - 1);
         playOrQuit.execute();
     }
-    //Exit state
+    
     
 }
