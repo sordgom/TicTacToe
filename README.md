@@ -11,7 +11,12 @@ TicTacToe game built on java . Our game is capable of running on any type of boa
 
 #### Prerequisites 
 1. Install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-
+2. set the JAVA_HOME environment variable in your terminal 
+Windows:
+	https://daisy.github.io/pipeline/Get-Help/Troubleshooting/Common-Errors-Windows/
+Linux:
+	https://stackoverflow.com/questions/24641536/how-to-set-java-home-in-linux-for-all-users
+	
 #### Running instructions
 1. Clone the repository by clicking on the green "Clone or Download" button
 2. Select Download Zip

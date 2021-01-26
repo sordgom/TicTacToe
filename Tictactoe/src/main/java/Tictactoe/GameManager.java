@@ -198,12 +198,12 @@ public class GameManager {
     //list of player for Player 1
     private static List<Player> players() {
         return Arrays.asList(
-                new Human(), new RandomBot(), new SmartBot());
+                new Human(), new RandomBot("Mr Random"), new SmartBot("Alan turner"));
     }
   //list of player for Player 2
     private static List<Player> players2() {
         return Arrays.asList(
-                new Human(), new RandomBot(), new SmartBot());
+                new Human(), new RandomBot("Eccentric user"), new SmartBot("Heisenberg"));
     }
    
     

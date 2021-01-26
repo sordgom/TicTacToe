@@ -8,17 +8,19 @@ import java.util.Random;
  */
 public class RandomBot extends  Player {
 	//This bot requires a  symbol and Random class to generate his choices
-	private final String name="Random Bot";
+	private final String name;
     private final Random random;
     private String symbol;
 
     public RandomBot() {
+    	this.name="Random bot";
 		this.random = new Random();
 		this.symbol = "";
     }
-    public RandomBot(Random random,String symbol) {
-        this.symbol=symbol;
-        this.random = random;
+    public RandomBot(String name) {
+    	this.random = new Random();
+		this.symbol = "";
+        this.name=name;
     }
 
     public void setSymbol(String symbol) {

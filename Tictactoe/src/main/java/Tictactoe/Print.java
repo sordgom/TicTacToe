@@ -147,7 +147,8 @@ public class Print {
     	if(game.isGameTied()){
     		output.println("It's a tie");
     	}else if(game.getWinner()!=null) {
-    		output.println("The winner is "+ game.getWinner().getSymbol());
+    		output.println("The winner is: \n"+ game.getWinner().getName()
+    				+" {"+game.getWinner().getSymbol()+"}");
     	}else {
     		output.println("This can't be happening!");
     	}
@@ -158,9 +159,10 @@ public class Print {
     }
 	//how to clear your screen https://www.javatpoint.com/how-to-clear-screen-in-java
     public void clearScreen() {
-    	final String clear_screen="\033[H\033[2J";
-    	output.print(clear_screen);
-    	output.flush();
+        final String CLEAR_SCREEN = "\033[H\033[2J";
+        output.print(CLEAR_SCREEN);
+        output.flush();
     }
+    
 }
 

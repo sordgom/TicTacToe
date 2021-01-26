@@ -11,11 +11,13 @@ import java.util.List;
  */
 public class SmartBot extends Player {
 	private  String symbol;
-	private final String name="Smart Bot";
+	private final String name;
 	
-	public SmartBot() {}
-	public SmartBot(String symbol) {
-	   this.symbol=symbol;
+	public SmartBot() {
+		this.name="Smart Bot";
+	}
+	public SmartBot(String name) {
+	   this.name=name;
 	}
 	/**
 	 * returns the spot of the best move possible
